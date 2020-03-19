@@ -6,32 +6,34 @@ def initialize(a, b, c)
   @c = c
 end
 
+ 
 
 def kind
+   triangle?
+sides = [a, b, c]
+[:equilateral, :isosceles, :scalene].fetch([a,b,c].uniq.size - 1)
+ end
 
-if a == b && b == c 
-   :equilateral
-elsif a == b || b == c || a == c 
-  :isosceles
-elsif a != b || b != c || c != a 
-   :scalene
-else 
-  raise TriangleError
-  end
-   
-end
-end
-   
-
-   
-  class TriangleError < StandardError
-    def message
-      "triangle error"
+ def triangle?
+    s = a or b or c
+    if not :isosceles or :equilateral or :scalene
+    if s <= 0  || a + b <= c || a + c <= b || b + c <= a 
+      then raise TriangleError
+      end      
     end
   end
-end
-
       
+  class TriangleError < StandardError
+    def message
+      "invalid"
+    end
+  end
+        
+        
+      end
+        
+        
+ 
 #      if a <= 0 || a + b <= c 
 #  return :equilateral if a == b && b == c
 #  return :isosceles if a == b || b == c
