@@ -1,9 +1,6 @@
-require 'pry'
+
 class Triangle
-  
   attr_accessor :length1, :length2, :length3
-  
-  
   
   def initialize(length1,length2,length3)
     @all=[]
@@ -13,58 +10,40 @@ class Triangle
     @all << @length1
     @all << @length2
     @all << @length3
-    @x=@all[0]
-    @y=@all[1]
-    @z=@all[2]
   end 
   
-  def all_equal?(arr)
-    arr.uniq.size <=1 
+  def all_equal?
+    @all.uniq.size <=1 
   end 
   
-  def two_equal?(arr)
-    @length1==@length2 || @length1==@length3 || @length2==@length3
+  def validator
+    if (@length1==0 && @length2==0 && @length3==0) || (@length1.negative?() || @length2.negative?() || @length3.negative?() ) || (@length1+@length2 <= @length3 || @length2+@length3 <= @length1 || @length1+@length3 <= @length2)
+      
+      return true
+    end 
   end 
-  
-  
   
   def kind 
     
-    if @x.positive?() && @y.positive?() && @z.positive?() && @x+@y >@z && @y+@z>@x && @x+@z=@y 
-       
-      if all_equal?(@all)
-      return :equilateral
+    if validator==true 
+      raise TriangleError
+    
+    else
+    
+      if all_equal?
+        return :equilateral
       
-      elsif two_equal?(@all)
-      return :isosceles
+      elsif @length1==@length2 || @length2==@length3 || @length3==@length1
+        return :isosceles
     
       else 
-        return :scalene
-      end
-   
-    else 
-      begin
-      
-        raise TraingleError
-      rescue TraingleError => error
-          puts error.message
-     
+        :scalene
       end
     end 
   
   end 
  
   class TriangleError < StandardError
-    def message
-      "You must give valid length for each side of the trainlge"
-      
-    end
-  end 
-end
-    
-    
-  
- 
-  
-  
+  end
 
+end
