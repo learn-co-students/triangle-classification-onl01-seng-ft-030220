@@ -16,7 +16,7 @@
 
 2.  `:isosceles`
 
-3.  `:scalene`
+3.  `:scalelne`
 
 - The `kind` method should raise a custom error, `TriangleError` if the triangle
   is invalid. Check out the hint below to understand what makes a triangle
